@@ -42,7 +42,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Praktikum CRUD</a>
+        <a class="navbar-brand" href="#">Vehicle Manager</a>
         <span class="back-btn"><a href="/" class="btn btn-secondary">Back</a></span>
     </nav>
     <div class="container">
