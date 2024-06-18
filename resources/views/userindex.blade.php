@@ -47,7 +47,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">Vehicle Manager</a>
-        <span class="back-btn"><a href="{{ route('kendaraan.index') }}" class="btn btn-secondary">Back</a></span>
+        <span class="back-btn"><a href="{{ route('dashboard') }}" class="btn btn-secondary">Back</a></span>
     </nav>
     <div class="container">
         <h4 class="text-left">DATA KENDARAAN</h4>
