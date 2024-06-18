@@ -2,16 +2,14 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Kendaraan;
+use Database\Factories\KendaraanFactory;
 
 class KendaraanSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
+    public function run()
     {
-        \App\Models\Kendaraan::factory(10)->create();
+        Kendaraan::factory()->count(10)->create();
     }
 }

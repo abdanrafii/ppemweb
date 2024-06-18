@@ -37,6 +37,20 @@
         .error {
             color: red;
         }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+        }
     </style>
 </head>
 
@@ -47,7 +61,7 @@
     </nav>
     <div class="container">
         <h4 class="text-left">Input Data Kendaraan</h4>
-        <form id="vehicleForm" action="{{ route('kendaraan.store') }}" method="post">
+        <form id="vehicleForm" action="{{ route('kendaraan.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label>Merk:</label>
@@ -89,7 +103,13 @@
                     <div class="error">{{ $message }}</div>
                 @enderror
             </div>
-            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+            <div class="d-flex align-items-center">
+                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                <div class="file-input-wrapper ml-3">
+                    <button type="button" class="btn btn-secondary">Choose File</button>
+                    <input type="file" name="gambar">
+                </div>
+            </div>
         </form>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

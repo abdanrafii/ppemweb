@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('tahun');
             $table->string('nomor_polisi');
             $table->string('warna');
+            $table->string('gambar');
         });
 
     }

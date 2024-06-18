@@ -29,19 +29,34 @@ class KendaraanController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'merk' => 'required',
-            'model' => 'required',
-            'tahun' => 'required|numeric',
-            'nomor_polisi' => 'required',
-            'warna' => 'required',
-        ]);
+{
+    // Validasi input
+    $validatedData = $request->validate([
+        'merk' => 'required',
+        'model' => 'required',
+        'tahun' => 'required|numeric',
+        'nomor_polisi' => 'required',
+        'warna' => 'required',
+        'gambar' => 'required|mimes:jpg,png,jpeg|max:2048',
+    ]);
 
-        Kendaraan::create($request->all());
+    // Mengambil file yang diunggah
+    $file = $request->file('gambar');
+    // Membuat nama file unik dengan menambahkan timestamp
+    $fileName = time() . '_' . $file->getClientOriginalName();
+    // Memindahkan file ke direktori public/uploads
 
-        return redirect()->route('kendaraan.index')->with('status', 'Data Kendaraan berhasil disimpan');
-    }
+    $file->storeAs('public/uploads', $fileName);
+    $imagePath = '/storage/uploads/' . $fileName;
+
+    // Menyimpan data kendaraan termasuk nama file gambar
+    $kendaraan = new Kendaraan($validatedData);
+    $kendaraan->gambar = $imagePath; // Pastikan menggunakan kolom 'gambar'
+    $kendaraan->save();
+
+    // Redirect ke halaman index dengan pesan sukses
+    return redirect()->route('kendaraan.index')->with('status', 'Data Kendaraan berhasil disimpan');
+}
 
 
     /**
@@ -66,16 +81,34 @@ class KendaraanController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'merk' => 'required',
             'model' => 'required',
             'tahun' => 'required|numeric',
             'nomor_polisi' => 'required',
             'warna' => 'required',
+            'gambar' => 'required|file|mimes:jpg,png,pdf|max:2048',
         ]);
 
         $data = Kendaraan::find($id);
-        $data->update($request->all());
+
+        if ($request->hasFile('gambar')) {
+            $file = $request->file('gambar');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/uploads', $fileName);
+            $imagePath = '/storage/uploads/' . $fileName;
+            $validatedData['gambar'] = $imagePath;
+        }
+
+        $data->update([
+            'merk' => $validatedData['merk'],
+            'model' => $validatedData['model'],
+            'tahun' => $validatedData['tahun'],
+            'nomor_polisi' => $validatedData['nomor_polisi'],
+            'warna' => $validatedData['warna'],
+            'gambar' => $validatedData['gambar'],
+        ]);
+
         return redirect()->route('kendaraan.index')->with('status', 'Data Kendaraan berhasil diupdate');
     }
 

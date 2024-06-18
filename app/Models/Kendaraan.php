@@ -14,6 +14,7 @@ class Kendaraan extends Model
         'tahun',
         'nomor_polisi',
         'warna',
+        'gambar'
     ];
 
     public $timestamps = false;

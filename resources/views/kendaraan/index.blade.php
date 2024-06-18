@@ -37,13 +37,23 @@
         .back-btn {
             margin-left: auto;
         }
+
+        .vehicle-image {
+            width: 100px;
+            height: auto;
+        }
+
+        th,
+        td {
+            vertical-align: middle !important;
+        }
     </style>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">Vehicle Manager</a>
-        <span class="back-btn"><a href="/" class="btn btn-secondary">Back</a></span>
+        <span class="back-btn"><a href="{{ url('/dashboard') }}" class="btn btn-secondary">Back</a></span>
     </nav>
     <div class="container">
         <h4 class="text-left">DATA KENDARAAN</h4>
@@ -56,6 +66,7 @@
                     <th>Tahun</th>
                     <th>Nomor Polisi</th>
                     <th>Warna</th>
+                    <th>Gambar</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -68,6 +79,10 @@
                         <td>{{ $kendaraan->tahun }}</td>
                         <td>{{ $kendaraan->nomor_polisi }}</td>
                         <td>{{ $kendaraan->warna }}</td>
+                        <td>
+                            <img src="{{ asset($kendaraan->gambar) }}" alt="{{ $kendaraan->merk }}"
+                                class="vehicle-image">
+                        </td>
                         <td>
                             <a href="{{ route('kendaraan.edit', $kendaraan->id) }}"
                                 class='btn btn-warning btn-sm'>Update</a>

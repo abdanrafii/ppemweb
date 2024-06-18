@@ -37,6 +37,20 @@
         .error {
             color: red;
         }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+        }
     </style>
 </head>
 
@@ -47,7 +61,8 @@
     </nav>
     <div class="container">
         <h4 class="text-left">Update Data Kendaraan</h4>
-        <form id="vehicleForm" action="{{ route('kendaraan.update', $data->id) }}" method="post">
+        <form id="vehicleForm" action="{{ route('kendaraan.update', $data->id) }}" method="post"
+            enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="form-group">
@@ -90,9 +105,21 @@
                     <div class="error">{{ $message }}</div>
                 @enderror
             </div>
-            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+            <div class="d-flex align-items-center">
+                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                <div class="file-input-wrapper ml-3">
+                    <button type="button" class="btn btn-secondary">Choose File</button>
+                    <input type="file" name="gambar">
+                </div>
+            </div>
         </form>
     </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-XE4d7a/iGckkBfnDggRPK/0Zbp5BAmOgSbF80FpNRrgh9JGxrdlWcv03heG7UgCp" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>
